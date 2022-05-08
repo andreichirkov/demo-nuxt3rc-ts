@@ -40,6 +40,30 @@ describe('useTodoStore', () => {
 
         expect(todo).toStrictEqual(item)
     })
+
+    test('gets ordered todos', () => {
+        const items = [
+            {
+                createdAt: new Date(2021, 2, 14)
+            },
+            {
+                createdAt: new Date(2020, 2, 14)
+            },
+            {
+                createdAt: new Date(2019, 2, 14)
+            }
+        ]
+
+        // @ts-ignore
+        store.items = items
+
+        const orderedTodos = store.getOrderedTodos
+
+        expect(orderedTodos[0].createdAt.getFullYear()).toBe(2019)
+        expect(orderedTodos[1].createdAt.getFullYear()).toBe(2020)
+        expect(orderedTodos[2].createdAt.getFullYear()).toBe(2021)
+        expect(store.items[0].createdAt.getFullYear()).toBe(2021)
+    })
 })
 
 // afterAll()
